@@ -156,7 +156,7 @@ Several hypotheses can be derived from previous research regarding the centralit
 
 A second expectation, derived from the work on the scientific consensus acting as a gateway belief, is that views on the scientific consensus would be the most central belief. 
 
-> **H2**: Beliefs about the scientific concensus will be the most central belief in the network 
+> **H2**: Beliefs about the scientific consensus will be the most central belief in the network 
 
 Finally, a third expectation, based on solution aversion, is that beliefs about policy approaches to climate change would be the most central because support or opposition to policy influences other climate beliefs. 
 
