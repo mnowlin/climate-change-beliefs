@@ -1,0 +1,591 @@
+---
+title: "<b>Data cleaning and analysis for:</b><br>Climate change belief system</br>"
+author: "Sanguk Lee, Matthew H. Goldberg, Seth A. Rosenthal, and Anthony Leiserowitz"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+---
+
+<style type="text/css">
+
+h1.title {
+  font-size: 38px;
+  color: Black;
+  text-align: center;
+}
+h4.author {
+    font-size: 28px;
+  font-family: "Times New Roman", Times, serif;
+  color: Black;
+  text-align: center;
+}
+h4.date {
+  font-size: 20px;
+  font-family: "Times New Roman", Times, serif;
+  color: Black;
+  text-align: center;
+}
+</style>
+
+```{r data_load, include=F}
+#Loading packages
+library(tidyverse)
+library(foreign)
+library(dplyr) 
+library(bootnet) 
+library(ggplot2)
+library(readxl) 
+library(patchwork) 
+library(emmeans) 
+library(ggpubr)
+library(qgraph)
+```
+
+```{r setup, include=F}
+# load the data
+df1 <- read.csv("GW_belief_system_data.csv")
+```
+
+## Network
+
+```{r All_network_estimation, echo=FALSE, message=FALSE, warning=FALSE}
+######## Network Overall #########
+# drop wave variable
+df2 <- df1[,3:17]
+# let's build network 
+labels <- c("GW \nhappening","GW \nhuman cause","GW \nconsensus","Collective \nefficacy",
+          "GW \nworry","Community \nrisk","US \nrisk","Risk \ntime",
+          "General \nattitude",
+          "Policy \nsupport \nCO2","Policy \nsupport \nfund","Policy \nsupport \nrebate",
+          "Political \nbehavior","Consumer \nbehavior \nreward","Consumer \nbehavior \npunish")
+net_all <- estimateNetwork(df2, default = "EBICglasso", labels = labels)
+```
+
+```{r All_network_plot, echo=FALSE, message=FALSE}
+fig1<-plot(net_all, layout = "spring", labels = labels, label.cex =.8,label.scale = F,title ="")
+```
+
+## RQ1 Centrality
+
+## Centrality
+*Betweenness Centrality: The degree to which a node lies on the shortest path between other nodes.
+*Closeness Centrality: The degree to which a node is close to all other nodes.
+*Strength Centrality: The degree to which a node is strongly connected to other adjacent nodes in the network.
+
+```{r RQ1_centrality, echo=F, message= F, cache = T}
+# estimate parameters of network including centrality and edge weights
+
+#set.seed(555) 
+# net_boot <- bootnet(net_all, nBoots = 1000,
+#                     default = "EBICglasso",
+#                     statistics = c("betweenness","closeness","strength","edge"),
+#                     type = "nonparametric", nCores = 1)
+
+#save(net_boot, file= paste0(getwd(),"/data/network_data_for_replication.RData"))
+
+load(paste0(getwd(),"/data/network_data_for_replication.RData"))
+
+net_boot_whole <- net_boot$bootTable
+net_boot_strength <- net_boot_whole %>%
+  filter(type=="strength") %>%
+  filter(id == c("US \nrisk","GW \nworry"))
+
+net_boot_stat<-summary(net_boot)
+net_boot_stat_cent <- net_boot_stat %>%
+  filter(type!="edge")
+```
+
+
+```{r customized_centrality_Plot, echo=FALSE, message=FALSE}
+# What is in the center? worry is positioned in the center
+cent_stat <- net_boot_stat_cent %>%
+  dplyr::select(type, id, mean, CIlower, CIupper)
+
+labels2 <- c("Collective efficacy", "Community risk", "Consumer behavior punish", 
+             "Consumer behavior reward", "GW consensus", "GW happening", "GW human cause", "GW worry", 
+             "General attitude", "Policy support CO2", "Policy support fund", "Policy support rebate", 
+             "Political behavior", "Risk time", "US risk")
+
+cent_stat$labels <- rep(labels2, 3)
+
+beet_cent<- cent_stat %>%
+  filter(type == "betweenness")
+beet_cent <- beet_cent[order(beet_cent$mean,decreasing = T),]
+rev(unique(beet_cent$labels))
+cent_stat$labels <- factor(cent_stat$labels, levels= rev(unique(beet_cent$labels)))
+
+cent_stat$type <- factor(cent_stat$type, labels= c("Betweenness", "Closeness", "Strength"))
+
+fig_cent<- ggplot(data = cent_stat, aes(x=mean, y=labels)) +
+  geom_point(size=1) + 
+  geom_errorbar(aes(xmin=(CIlower), xmax=(CIupper)), stat = "identity", position=position_dodge(0.1), width=.1) +
+  xlab("") +
+  ylab("") + 
+  geom_vline(xintercept = 0, linetype = "dotted", alpha = .3)+
+  theme_bw() +
+  facet_wrap(~type, scales = "free_x") +
+  theme(axis.text.x = element_text(size = 6),
+        axis.text.y = element_text(size = 7),
+        strip.text.x = element_text(size = 7))
+fig_cent
+ggsave(paste0(output, "Centrality_revise.tiff"), 
+       plot = last_plot(), 
+       width = 14, 
+       height = 10, 
+       units = "cm", 
+       dpi = 300)
+```
+
+
+```{r party_count, include = F}
+count <- df1 %>% count(PartyWLeaners)
+rep <- count[1,2]
+dem <- count[2,2]
+ind <- count[3,2]
+no <- count[4,2]
+```
+
+# Network by Party
+(Republican _n_ = `r rep`, Democratic _n_ = `r dem`, Independent _n_ = `r ind`, No Party _n_ = `r no`)
+
+## Network
+```{r Party_network_plot, echo=TRUE, message = FALSE, warning=F}
+# network by party
+netp <- function(dataframe,p_group){
+  dfs <- dataframe[which(dataframe$PartyWLeaners==p_group),]
+  dfs <- dfs[,3:17]
+  net <- estimateNetwork(dfs, default = "EBICglasso", labels = labels)
+}
+missing_p<-function(dataframe,p_group){
+  dfs <- dataframe[which(dataframe$PartyWLeaners==p_group),]
+  dfs <- dfs[,3:17]
+  missing_perc <- sum(is.na(dfs))/(nrow(dfs)*ncol(dfs))*100
+  print(missing_perc)
+}
+# remove disengaged group since they have many missing values in risk questions
+p_list<- c("Republicans","Democrats","Independent/Other","No party/Not interested")
+net_list_p <- list()
+for (p in p_list){
+  net<-netp(df1,p)
+  net_list_p <- append(net_list_p, list(net))
+  #missing_p(df1,p) # no party group has more than 10% missing values
+}
+
+plot(net_all, layout = "spring", labels = labels, label.cex =.8,label.scale = F,title ="")
+plot(net_list_p[[1]], layout = "spring", labels = labels, label.cex =0.8,label.scale = F,title="")
+plot(net_list_p[[2]], layout = "spring", labels = labels, label.cex =0.8,label.scale = F,title="")
+plot(net_list_p[[3]], layout = "spring", labels = labels, label.cex =0.8,label.scale = F,title="")
+plot(net_list_p[[4]], layout = "spring", labels = labels, label.cex =0.8,label.scale = F,title="")
+
+```
+
+
+```{r functions, include = FALSE, message = FALSE, warning=F}
+# density of a weighted network (Ref: Liu, G., Wong, L., & Chua, H. N. (2009). Complex discovery from weighted PPI networks. Bioinformatics, 25(15), 1891-1897.)
+density <- function(netdata){
+  sum_v <- sum(abs(netdata$graph)) # use absolute values. 
+  num_nodes<- netdata$nNode
+  possible_edges<- netdata$nNode*(netdata$nNode-1)  # compute the number of possible edges
+  result <- sum_v/possible_edges
+  return(result)
+}
+
+# Get lower triangle of the correlation matrix
+get_lower_tri<-function(cormat){
+  cormat[upper.tri(cormat)] <- NA
+  return(cormat)
+}
+```
+
+## Density
+
+* Density: The degree of network tightness 
+
+# Network by Wave
+
+## Density Change
+
+```{r network_by_pol_wave, include = F}
+# define a function that generates graph
+# data = dataframe
+net_p_wave<- function(dataframe, wave2, pol2){
+  dfwp <- dataframe %>%
+    filter(wave == wave2 & PartyWLeaners == pol2)
+  dfwp <- dfwp[,3:17]
+  net <- estimateNetwork(dfwp, default = "EBICglasso", labels = labels)
+  return(net)
+}
+```
+
+```{r density_plot_by_pol_wave, echo=FALSE, message = FALSE, warning=F}
+# looping to generate 60 networks based on wave and party, and keep them in a list
+net_list_wp<- list()
+for (w in wave_list){
+  net_list_w1 <- list()
+  for (p in p_list){
+    net <- net_p_wave(df1, w, p)
+    net_list_w1 <- append(net_list_w1, list(net))
+    }
+  net_list_wp <- append(net_list_wp, list(net_list_w1))
+}
+
+# does network density has increased over time across parties?
+library(lubridate)
+
+dens_wp <- list()
+for (w in 1:length(wave_list)){
+  dens_p <- list()
+  for (p in 1:length(p_list)){
+    net <- net_list_wp[[w]][[p]] # w = (1,2,3,4,5...15) p = (rep,demo,ind,no)
+    dens <- density(net)
+    dens_p <- append(dens_p, list(dens))
+  }
+  dens_wp <-append(dens_wp, list(dens_p))
+}
+
+# density df
+dens_df<- as.data.frame(do.call(rbind, dens_wp))
+names(dens_df) <- p_list
+dens_df <- dens_df %>% 
+  gather(pol, density, 1:4)
+dens_df$wave <- rep(wave_list, 4)
+
+df_net<-dens_df
+df_net$wave <- mdy(df_net$wave)
+df_net$wave <- as.Date(df_net$wave, "%m/%y")
+
+df_net$density <- as.numeric(df_net$density)
+df_net$pol <- factor(df_net$pol, levels = p_list)
+
+mean(df_net$density)
+sd(df_net$density)
+
+dens_plot <- ggplot(data = df_net, aes(x = wave, y = density, color = pol)) +
+  geom_point() + 
+  scale_color_manual(values = c('#FF3300', '#3399FF', "#99FF33", "#FFCC00")) +
+  geom_smooth(method = lm) +
+  ylim(c(0, 0.10)) +
+  labs(title = "", x = "Wave", y = "Density", color = "Political Affiliation") +
+  theme(legend.key.size = unit(0.5, "cm"),
+        legend.text = element_text(size = 6),
+        axis.text = element_text(size = 6),
+        axis.title = element_text(size = 8)) +
+  theme_classic()
+dens_plot 
+```
+
+## RQ2 Density Regressions & Simple slope
+
+```{r RQ2_reg1, echo=FALSE, message = FALSE, warning=F}
+# set up
+df_net$wave_num <- rep(1:15, 4)
+df_net$pol_factor<- as.factor(df_net$pol)
+
+# regression
+model1 <- lm(density~ wave_num*pol_factor, df_net)
+#model1 <- lm(scale(density)~ scale(wave_num)*pol_factor, df_net)
+coef(model1)
+summary(model1)
+confint(model1)
+
+# simple slope
+emtrends(model1, ~ pol_factor, var = "wave_num")
+```
+
+
+```{r melted_wp, echo=FALSE, message = FALSE, warning=F}
+library(NetworkDistance)
+library(reshape2)
+
+graph_list_wp <- list()
+for (w in 1:length(wave_list)){
+  graph_p <- list()
+  for (p in 1:length(p_list)){
+    net_wp <- net_list_wp[[w]][[p]]$graph
+    graph_p <- append(graph_p, list(net_wp))
+  }
+  graph_list_wp <- append(graph_list_wp, list(graph_p))
+}
+
+renquote <- function(l){
+  if (is.list(l)) lapply(l, renquote) 
+  else enquote(l)}
+graph_list_wp_unflat<-lapply(unlist(renquote(graph_list_wp)), eval)
+# reorder list 
+# rep: first 15 waves 
+# demo: second 15 waves 
+# ind: third 15 waves 
+# no: fourth 15 waves 
+myorder <- list(1,5,9,13,17,21,25,29,33,37,41,45,49,53,57,
+            2,6,10,14,18,22,26,30,34,38,42,46,50,54,58,
+            3,7,11,15,19,23,27,31,35,39,43,47,51,55,59,
+            4,8,12,16,20,24,28,32,36,40,44,48,52,56,60)
+new_graph_list_wp <- list()
+for (l in myorder){
+  graph <- graph_list_wp_unflat[[l]]
+  new_graph_list_wp <- append(new_graph_list_wp,list(graph))
+}
+
+GDD_wp <- nd.gdd(new_graph_list_wp, out.dist = FALSE)
+
+# Get lower triangle of the correlation matrix
+lower_tri_wp <- get_lower_tri(GDD_wp$D)
+melted_wp <- melt(lower_tri_wp, na.rm = T)
+
+# normalize the graph diffusion distance score using min-max method
+normalize <- function(x) {
+  return((x - min(x)) / (max(x) - min(x)))
+}
+
+# Apply the function to the "value" column
+melted_wp$value <- normalize(melted_wp$value)
+```
+
+```{r setup_for_RQ3, include=FALSE, message = FALSE, warning=F}
+# recode var1 and var2
+melted_wp <- melted_wp %>%
+  mutate(revar1 = case_when(Var1 %in% 1:15 ~ "rep",
+                   Var1 %in% 16:30 ~ "demo",
+                   Var1 %in% 31:45 ~ "ind",
+                   Var1 %in% 46:60 ~ "no"))
+melted_wp <- melted_wp %>%
+  mutate(revar2 = case_when(Var2 %in% 1:15 ~ "rep",
+                   Var2 %in% 16:30 ~ "demo",
+                   Var2 %in% 31:45 ~ "ind",
+                   Var2 %in% 46:60 ~ "no"))
+melted_wp$dyadic_cond <- 0 
+melted_wp$dyadic_cond <- ifelse(melted_wp$revar1=="rep" & melted_wp$revar2=="rep", "rep-rep", melted_wp$dyadic_cond)
+melted_wp$dyadic_cond <- ifelse(melted_wp$revar1=="rep" & melted_wp$revar2=="demo", "rep-demo", melted_wp$dyadic_cond)
+melted_wp$dyadic_cond <- ifelse(melted_wp$revar1=="rep" & melted_wp$revar2=="ind", "rep-ind", melted_wp$dyadic_cond)
+melted_wp$dyadic_cond <- ifelse(melted_wp$revar1=="rep" & melted_wp$revar2=="no", "rep-no", melted_wp$dyadic_cond)
+melted_wp$dyadic_cond <- ifelse(melted_wp$revar1=="demo" & melted_wp$revar2=="rep", "rep-demo", melted_wp$dyadic_cond)
+melted_wp$dyadic_cond <- ifelse(melted_wp$revar1=="demo" & melted_wp$revar2=="demo", "demo-demo", melted_wp$dyadic_cond)
+melted_wp$dyadic_cond <- ifelse(melted_wp$revar1=="demo" & melted_wp$revar2=="ind", "demo-ind", melted_wp$dyadic_cond)
+melted_wp$dyadic_cond <- ifelse(melted_wp$revar1=="demo" & melted_wp$revar2=="no", "demo-no", melted_wp$dyadic_cond)
+melted_wp$dyadic_cond <- ifelse(melted_wp$revar1=="ind" & melted_wp$revar2=="rep", "rep-ind", melted_wp$dyadic_cond)
+melted_wp$dyadic_cond <- ifelse(melted_wp$revar1=="ind" & melted_wp$revar2=="demo", "demo-ind", melted_wp$dyadic_cond)
+melted_wp$dyadic_cond <- ifelse(melted_wp$revar1=="ind" & melted_wp$revar2=="ind", "ind-ind", melted_wp$dyadic_cond)
+melted_wp$dyadic_cond <- ifelse(melted_wp$revar1=="ind" & melted_wp$revar2=="no", "ind-no", melted_wp$dyadic_cond)
+melted_wp$dyadic_cond <- ifelse(melted_wp$revar1=="no" & melted_wp$revar2=="rep", "rep-no", melted_wp$dyadic_cond)
+melted_wp$dyadic_cond <- ifelse(melted_wp$revar1=="no" & melted_wp$revar2=="demo", "demo-no", melted_wp$dyadic_cond)
+melted_wp$dyadic_cond <- ifelse(melted_wp$revar1=="no" & melted_wp$revar2=="ind", "ind-no", melted_wp$dyadic_cond)
+melted_wp$dyadic_cond <- ifelse(melted_wp$revar1=="no" & melted_wp$revar2=="no", "no-no", melted_wp$dyadic_cond)
+melted_wp <- melted_wp[which(melted_wp$value > 0 ), ]
+melted_wp$dyadic_cond <- as.factor(melted_wp$dyadic_cond)
+melted_wp2 <- melted_wp[which(melted_wp$dyadic_cond =="rep-rep"|melted_wp$dyadic_cond =="demo-demo"|
+                                melted_wp$dyadic_cond =="ind-ind"|melted_wp$dyadic_cond =="no-no"), ]
+melted_wp3 <- melted_wp[which(melted_wp$dyadic_cond =="rep-demo"|melted_wp$dyadic_cond =="rep-ind"|
+                                melted_wp$dyadic_cond =="rep-no"|melted_wp$dyadic_cond =="demo-ind"|
+                                melted_wp$dyadic_cond =="demo-no"|melted_wp$dyadic_cond =="ind-no"), ]
+
+melted_wp$dyadic_category <- 0 
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="rep" & melted_wp$revar2=="rep", "party-party", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="rep" & melted_wp$revar2=="demo", "party-party", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="rep" & melted_wp$revar2=="ind", "party-party", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="rep" & melted_wp$revar2=="no", "party-no", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="demo" & melted_wp$revar2=="rep", "party-party", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="demo" & melted_wp$revar2=="demo", "party-party", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="demo" & melted_wp$revar2=="ind", "party-party", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="demo" & melted_wp$revar2=="no", "party-no", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="ind" & melted_wp$revar2=="rep", "party-party", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="ind" & melted_wp$revar2=="demo", "party-party", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="ind" & melted_wp$revar2=="ind", "party-party", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="ind" & melted_wp$revar2=="no", "party-no", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="no" & melted_wp$revar2=="rep", "party-no", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="no" & melted_wp$revar2=="demo", "party-no", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="no" & melted_wp$revar2=="ind", "party-no", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="no" & melted_wp$revar2=="no", "no-no", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- as.factor(melted_wp$dyadic_category)
+
+melted_wp$dyadic_category <- 0 
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="rep" & melted_wp$revar2=="rep", "party-party", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="rep" & melted_wp$revar2=="demo", "party-party", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="rep" & melted_wp$revar2=="ind", "party-party", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="rep" & melted_wp$revar2=="no", "party-no", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="demo" & melted_wp$revar2=="rep", "party-party", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="demo" & melted_wp$revar2=="demo", "party-party", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="demo" & melted_wp$revar2=="ind", "party-party", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="demo" & melted_wp$revar2=="no", "party-no", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="ind" & melted_wp$revar2=="rep", "party-party", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="ind" & melted_wp$revar2=="demo", "party-party", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="ind" & melted_wp$revar2=="ind", "party-party", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="ind" & melted_wp$revar2=="no", "party-no", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="no" & melted_wp$revar2=="rep", "party-no", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="no" & melted_wp$revar2=="demo", "party-no", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="no" & melted_wp$revar2=="ind", "party-no", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- ifelse(melted_wp$revar1=="no" & melted_wp$revar2=="no", "no-no", melted_wp$dyadic_category)
+melted_wp$dyadic_category <- as.factor(melted_wp$dyadic_category)
+
+```
+
+## Graph Diffusion Distance Within and Between Partisanship
+* IV: dyadic partisanship condition 
+* DV: graph diffusion distance
+
+### Within Partisanship
+```{r RQ3a_intra_group_comparison, echo=FALSE, message = FALSE, warning=F}
+library("ggpubr")
+
+table(melted_wp2$dyadic_cond)
+melted_wp2$dyadic_cond <- factor(melted_wp2$dyadic_cond, 
+                                 levels = c("rep-rep","demo-demo","ind-ind","no-no"),
+                                 labels = c("Republican","Democratic","Independent","No Party"))
+
+summary_melted_wp2 <- aggregate(value ~ dyadic_cond, melted_wp2, function(x) c(mean = mean(x), sd = sd(x)/sqrt(length(x))))
+mean(melted_wp2$value)
+sd(melted_wp2$value)
+
+anova1 <- aov(value ~ dyadic_cond, data= melted_wp2)
+summary(anova1)
+#confint(anova1)
+
+tukey <- TukeyHSD(anova1)
+tukey
+plot(tukey, las = 1)
+
+ggplot(melted_wp2, aes(x= dyadic_cond, y = value)) +
+  geom_boxplot(outlier.colour = NA) +
+  geom_jitter(width = 0.2,alpha = 0.6, color = "gray80") +
+  labs(y = "Normalized Graph Diffusion Distance Score", x = "") +
+  theme_classic()+
+  theme(axis.text.x = element_text(size = 10),
+        axis.text.y = element_text(size = 10))+
+  coord_cartesian(ylim = c(0, 1))
+
+```
+
+```{r RQ3a_sensitivity_test, echo=FALSE, message = FALSE, warning=F}
+names(melted_wp2)
+outliers <- melted_wp2 %>% 
+  filter(revar1=="no") %>%
+  mutate(value_scaled = scale(value)) %>%
+  arrange(desc(value_scaled))
+
+# Belief system of no party at wave 3 seems structurally very different from others potentially due to the many missignness in the data. 
+# This contributes on producing outliers of GDD. 
+# We need to examine whether the results will be replicated even after we remove outliers. 
+# Belief system of no party at wave 3 = 48. Let's remove belief system 48 from the data
+sen_melted_wp2 <- melted_wp2 %>%
+  filter(Var1!=48&Var2!=48)
+
+summary_sen_melted_wp2 <- aggregate(value ~ dyadic_cond, sen_melted_wp2, function(x) c(mean = mean(x), sd = sd(x)/sqrt(length(x))))
+
+anova1<- aov(value ~ dyadic_cond, data= sen_melted_wp2)
+summary(anova1)
+#confint(anova1)
+
+tukey <- TukeyHSD(anova1)
+tukey
+plot(tukey, las = 1)
+
+ggplot(sen_melted_wp2, aes(x= dyadic_cond, y = value)) +
+  geom_boxplot(outlier.colour = NA) +
+  geom_jitter(width = 0.2,alpha = 0.6, color = "gray80") +
+  labs(y = "Normalized Graph Diffusion Distance Score", x = "") +
+  theme_classic()+
+  theme(axis.text.x = element_text(size = 10),
+        axis.text.y = element_text(size = 10))+
+  coord_cartesian(ylim = c(0, 1))
+    
+```
+
+
+### Between Partisanship
+```{r RQ3b_inter_group_comparison, echo=FALSE, message = FALSE, warning=F}
+anova2 <- aov(value ~ dyadic_cond, data= melted_wp3)
+summary(anova2)
+tukey2 <- TukeyHSD(anova2)
+tukey2
+
+melted_wp3$dyadic_cond <- factor(melted_wp3$dyadic_cond, 
+                                 levels= c("rep-demo","rep-ind","demo-ind",
+                                           "rep-no","demo-no","ind-no"),
+                                 labels=c("Republican-Democratic","Republican-Independent","Democratic-Independent",
+                                          "Republican-No Party","Democratic-No Party","Independent-No Party"))
+
+mean(melted_wp3$value)
+sd(melted_wp3$value)
+
+ggplot(melted_wp3, aes(x= dyadic_cond, y = value)) +
+  geom_boxplot(outlier.colour = NA) +
+  geom_jitter(width = 0.2,alpha = 0.6, color = "gray80") +
+  labs(y = "Normalized Graph Diffusion Distance Score", x = "") +
+  theme_classic()+
+  theme(axis.text.x = element_text(size = 9),
+        axis.text.y = element_text(size = 10)) +
+  coord_cartesian(ylim = c(0, 1))
+
+```
+
+
+```{r RQ3b_sensitivity_test, echo=FALSE, message = FALSE, warning=F}
+names(melted_wp3)
+outliers <- melted_wp3 %>% 
+  filter(revar1=="no") %>%
+  mutate(value_scaled = scale(value)) %>%
+  arrange(desc(value_scaled))
+
+# Belief system of no party at wave 3 seems structurally very different from others potentially due to the many missignness in the data. 
+# This contributes on producing outliers of GDD. 
+# We need to examine whether the results will be replicated even after we remove outliers. 
+# Belief system of no party at wave 3 = 48. Let's remove belief system 48 from the data
+sen_melted_wp3 <- melted_wp3 %>%
+  filter(Var1!=48&Var2!=48)
+
+summary_sen_melted_wp3 <- aggregate(value ~ dyadic_cond, sen_melted_wp3, function(x) c(mean = mean(x), sd = sd(x)/sqrt(length(x))))
+
+anova1<- aov(value ~ dyadic_cond, data= sen_melted_wp3)
+summary(anova1)
+#confint(anova1)
+
+tukey <- TukeyHSD(anova1)
+tukey
+plot(tukey, las = 1)
+
+ggplot(sen_melted_wp3, aes(x= dyadic_cond, y = value)) +
+  geom_boxplot(outlier.colour = NA) +
+  geom_jitter(width = 0.2,alpha = 0.6, color = "gray80") +
+  labs(y = "Normalized Graph Diffusion Distance Score", x = "") +
+  theme_classic()+
+  theme(axis.text.x = element_text(size = 9),
+        axis.text.y = element_text(size = 10))+
+  coord_cartesian(ylim = c(0, 1))
+```
+
+# Supplemntal Material
+
+```{r bootstrap_centrality_difference, echo = FALSE, message = FALSE, warning = FALSE}
+labels3 <- c("GW \nhappening","GW \nhuman cause","GW \nconsensus","Collective \nefficacy",
+          "Community \nrisk","US \nrisk","Risk \ntime",
+          "General \nattitude",
+          "Policy \nsupport \nCO2","Policy \nsupport \nfund","Policy \nsupport \ntax",
+          "Political \nbehavior","Consumer \nbehavior \nreward","Consumer \nbehavior \npunish")
+
+diff_df <- data.frame(id1 = character(), id2 = character(), measure = character(),
+                      lower = numeric(), upper = numeric(), significant = logical(),
+                      stringsAsFactors = FALSE)
+
+for (label in labels3) {
+  row <- differenceTest(net_boot, label, "GW \nworry", c("betweenness","closeness","strength"), alpha = .05)
+  diff_df<-rbind(diff_df,row)
+}
+```
+
+## sensitivity, specifity, stableness tests for centrality of the whole network
+```{r sensitivity, spcifity, stableness tests, echo = FALSE, message = FALSE, warning = FALSE}
+load(paste0(getwd(),"/data/network_data_for_replication_net_boot2.RData"))
+a<-net_boot2$bootTable
+plot(net_boot2, statistics = c("betweenness","closeness","strength"))
+ggsave(paste0(output,"stability.png"), width = 15, height = 12, units = "cm", dpi = 600)
+corStability(net_boot2, cor= 0.7, statistics = c("betweenness","closeness","strength","edge"))
+```
+
+```{r descriptive_df1, echo=FALSE, message=FALSE, warning=FALSE}
+names(df1)
+df_desc <- df1[,3:17]
+sapply(df_desc, function(x) c(mean = round(mean(x, na.rm = T),2), sd = round(sd(x, na.rm = T),2)))
+```

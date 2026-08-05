@@ -1,0 +1,8 @@
+project:
+  type: default
+  pre-render: scripts/export-cited-refs.R
+  render:
+    - manuscript/climate-beliefs.qmd
+
+execute:
+  freeze: auto

@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.DS_Store
+manuscript/references.bib
+manuscript/american-political-science-association.csl
+
+/.quarto/
+**/*.quarto_ipynb
