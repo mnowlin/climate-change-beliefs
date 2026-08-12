@@ -1,4 +1,6 @@
-# The Centrality of Cultural Worldviews in the Climate Change Belief System Network
+# What Beliefs are Central in the Climate Change Belief System Network?
+
+*(Previously titled "The Centrality of Cultural Worldviews in the Climate Change Belief System Network"; retitled Session 22.)*
 
 Manuscript and reproducible analysis examining the climate change belief system
 as a network. Using original quota-based US survey data, the analysis fits a

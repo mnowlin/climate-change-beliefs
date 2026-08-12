@@ -1,22 +1,65 @@
 # Response to Reviewers (DRAFT SKELETON)
-## *The Centrality of Cultural Worldviews in the Climate Change Belief System Network*
+## *What Beliefs are Central in the Climate Change Belief System Network?*
+### (submitted as *The Centrality of Cultural Worldviews in the Climate Change Belief System Network*; retitled Session 22)
 
 **Status**: All items now have manuscript prose or an explicit flagged
 determination point. Every item R1-1 through R1-8 and R2-1 through R2-5 has
 been incorporated as plain, final prose directly into
 `manuscript/climate-beliefs.qmd` — none of it is still tagged `[DRAFT ...]`
 or italicized (that convention, used through Session 20, has been fully
-retired). For a handful of items (R1-6, R1-8, R2-3, R1-4, R2-4/R2-5) the
-prose itself makes a genuine judgment call — tone, framing, or emphasis —
-that only the user can finalize; those spots are marked with an in-source
-HTML comment (`<!-- NEEDS YOUR DETERMINATION: ... -->`), invisible in all
-three rendered formats, at the exact paragraph in question. Two items (R1-5,
-R1-7) were open-ended restructuring/trimming requests with no specific
-target; rather than risk altering established prose unilaterally, these were
-left untouched and flagged instead (`<!-- FLAGGED, NOT EDITED: ... -->`).
+retired). As of Session 22, **R1-5 is fully resolved** (the user directed a
+restructuring pass; see below) and **R2-4/R2-5's rank-claim-hedging
+determination is also resolved** (the user directed the fix; see below). For
+the remaining items where the prose makes a genuine judgment call — tone,
+framing, or emphasis — user determinations are now in: **R1-6 and R2-3 were
+confirmed as-is by the user** (no further edit needed), while **R1-4 and
+R1-8 remain open**, marked with an in-source HTML comment
+(`<!-- NEEDS YOUR DETERMINATION: ... -->`), invisible in all three rendered
+formats, at the exact paragraph in question. One item (R1-7) remains an
+open-ended trimming request with no specific target the user has not yet
+acted on; it is still flagged (`<!-- FLAGGED, NOT EDITED: ... -->`) rather
+than edited unilaterally.
 See `reviews/review-response-plan.md` for the original point-by-point plan
 this letter is built from, and `LOG.md` Sessions 13-21 for exactly what was
 added and why, session by session.
+
+> ℹ️ **Session 22 — R1-5 and R2-4/R2-5 resolved; manuscript retitled; BN
+> methods citations expanded.** The user made a hands-on editing pass over
+> the manuscript (retitling it, trimming/adding prose, and leaving inline
+> comments with explicit instructions) and asked for those instructions to
+> be carried out:
+> - **R1-5** (literature review integration) — the "Belief Systems and
+>   Belief System Networks" section was restructured to introduce the
+>   hierarchical and network traditions together up front, then interleave
+>   their treatment of deep core, policy core, and secondary beliefs
+>   paragraph-by-paragraph, rather than presenting a full hierarchical block
+>   followed by a full network block. All original citations were preserved.
+>   See the R1-5 entry below for detail.
+> - **R2-4/R2-5 rank-claim hedging** — the pairwise bootstrap difference-test
+>   paragraph was moved out of "## GGM Robustness Checks" and into the main
+>   centrality-results discussion, immediately after the betweenness/
+>   closeness/strength paragraphs it qualifies. "Most central" language was
+>   then softened throughout the Introduction, Results, and Discussion (e.g.,
+>   "egalitarianism is the node with the highest betweenness centrality, by a
+>   wide margin" → "...has the highest point estimate for betweenness
+>   centrality") to reflect that top-ranked nodes are frequently not
+>   statistically distinguishable from several others. See the R2-5 entry
+>   below for detail.
+> - **Manuscript retitled** from "The Centrality of Cultural Worldviews in
+>   the Climate Change Belief System Network" to "What Beliefs are Central in
+>   the Climate Change Belief System Network?" (user's own edit).
+> - **BN methods citations expanded**: the companion Bayesian-network Methods
+>   paragraph, previously citing only `@scutariLearningBayesianNetworks2010`,
+>   now also cites `@brigantiTutorialBayesianNetworks2023` (BN tutorial for
+>   psychopathology/psych-network researchers, closest methodological
+>   analogue to this paper's use case), `@scutariWhoLearnsBetter2019`
+>   (structure-learning algorithm comparison), `@friedmanDataAnalysisBayesian2013`
+>   (bootstrap edge-stability procedure), `@kollerProbabilisticGraphicalModels2010`
+>   and `@pearlProbabilisticReasoningIntelligent2014` (DAG/Markov-blanket
+>   foundations), `@chickeringOptimalStructureIdentification2002` and
+>   `@spirtesCausationPredictionSearch2000` (Markov-equivalence caveat), and
+>   `@buurenMiceMultivariateImputation2011` (multiple-imputation procedure).
+>   All eight are now in the master bib and the user's Zotero library.
 
 > ℹ️ **Draft prose added (Session 13) + bnlearn citation fixed (Session 14).**
 > `manuscript/climate-beliefs.qmd` now contains draft, italicized responses to
@@ -68,17 +111,26 @@ added and why, session by session.
 ```
 Dear Editor and Reviewers,
 
-Thank you for the constructive and detailed feedback on our manuscript
-"The Centrality of Cultural Worldviews in the Climate Change Belief System
-Network." We have revised the manuscript to address each point below. A
-summary of major changes: reframed the gateway-belief-model discussion
-(R1-1) and added a paragraph justifying the continued relevance of the 2017
-data (R1-2); added a Bayesian-network robustness check as a companion to the
-GGM, addressing the concern that the network-vs-hierarchy conclusion might
-be an artifact of the undirected model (R2-2); added LASSO and centrality
-robustness analyses (R2-4, R2-5) [PLACEHOLDER — extend once R1-3 causal-
-language pass, R2-1 narrative rewrite, R2-3, R1-4 transparency statement,
-and remaining minor items are drafted].
+Thank you for the constructive and detailed feedback on our manuscript,
+now retitled "What Beliefs are Central in the Climate Change Belief System
+Network?" (previously "The Centrality of Cultural Worldviews in the Climate
+Change Belief System Network"). We have revised the manuscript to address
+each point below. A summary of major changes: reframed the gateway-belief-
+model discussion (R1-1) and added a paragraph justifying the continued
+relevance of the 2017 data (R1-2); adopted an exploratory framing in place
+of the original confirmatory hypotheses, better reflecting the paper's
+single organizing contribution (R2-1); added a Bayesian-network robustness
+check as a companion to the GGM, addressing the concern that the
+network-vs-hierarchy conclusion might be an artifact of the undirected
+model (R2-2); restructured the literature review to integrate the
+hierarchical and network perspectives directly rather than presenting them
+as parallel traditions (R1-5); revised causal language throughout to reflect
+the cross-sectional, undirected design (R1-3); added LASSO and centrality
+robustness analyses, including pairwise significance tests, and revised
+"most central" language throughout to reflect where those tests show ranks
+are not statistically distinguishable (R2-4, R2-5) [PLACEHOLDER — extend
+once R1-4's data/code access-mechanism decision, R1-7's Methods trimming,
+and R1-8's contribution-paragraph tone are finalized].
 
 Reviewer comments are reproduced in italics below, followed by our response.
 ```
@@ -214,16 +266,40 @@ subsection (Results) — both added in Session 21.
 > particularly in integrating hierarchical and network perspectives rather
 > than presenting them in parallel."*
 
-**Status**: FLAGGED, NOT EDITED (Session 21). This is an open-ended
-integration/restructuring request across a large, established block of
-literature-review prose (~50 lines), not a targeted language fix — rewriting
-it unilaterally risked changing the argument's flow and content in ways that
-need your own judgment. An HTML comment (invisible in rendered output) is
-inserted at the "# Belief Systems and Belief System Networks" heading noting
-this critique for your own read-through. No text was changed.
+**Status**: DONE (Session 22). Flagged, not edited, through Session 21 for
+the reasons above; the user then reviewed the flagged section and directed a
+restructuring pass. The "Belief Systems and Belief System Networks" section
+now opens with a paragraph naming both traditions together ("Two traditions
+have developed to characterize how these connections are structured and how
+a belief's importance...should be understood"), then interleaves the
+hierarchical and network treatment of deep core, policy core, and secondary
+beliefs paragraph-by-paragraph — e.g., the deep-core paragraph states the
+hierarchical claim (deep core beliefs are resistant to change and act as
+filters) immediately followed by the network's empirical reframing of the
+same claim (deep core beliefs are important only if they are, in fact,
+highly central), with the ANES/Brandt evidence for the latter folded in
+directly rather than presented three paragraphs later as a separate
+"network approach" block. The subsequent center-periphery/betweenness/
+closeness/degree material (which is inherently network-specific and has no
+hierarchical analogue) was left as a technical block, with one added
+sentence tying betweenness back to the hierarchical "filtering" concept. All
+original citations were preserved; none were dropped or added. The in-source
+`FLAGGED, NOT EDITED` comment has been updated to `DONE` with a summary of
+the restructuring, and a note that this changes argument flow, not just
+wording, so it is worth the user's own close read.
 
-**Response**: [PLACEHOLDER — write once you've done your own integration
-pass, or decide this doesn't need one]
+**Response**: In response to this comment, we restructured the "Belief
+Systems and Belief System Networks" section to integrate the hierarchical
+and network perspectives directly, rather than presenting them as two
+parallel traditions. The section now introduces both perspectives together
+at the outset and, for each type of belief (deep core, policy core, and
+secondary), presents how it is understood under a hierarchical account
+immediately alongside how the same belief is instead treated under a network
+account, before turning to the network-specific centrality measures used in
+the analysis.
+**Manuscript changes**: "# Belief Systems and Belief System Networks"
+section, `manuscript/climate-beliefs.qmd` — restructured across six
+paragraphs (Session 22).
 
 ---
 
@@ -232,14 +308,15 @@ pass, or decide this doesn't need one]
 > *"The hypotheses would benefit from greater precision, especially in
 > linking theoretical expectations to specific centrality metrics."*
 
-**Status**: DONE — prose added (Session 21), flagged `NEEDS YOUR
-DETERMINATION`. Two sentences appended to the end of "## Theoretical
-Expectations" map betweenness/closeness centrality (bridging/reaching roles)
-to the hierarchical, deep-core-belief account, and strength centrality
+**Status**: DONE and CONFIRMED (Session 21 prose; user confirmed Session 22).
+Two sentences appended to the end of "## Theoretical Expectations" map
+betweenness/closeness centrality (bridging/reaching roles) to the
+hierarchical, deep-core-belief account, and strength centrality
 (direct-connection count/magnitude) to the solution-aversion, policy-belief
-account. This specific metric-to-theory mapping is an interpretive call, not
-a mechanical fix, so it's flagged for your confirmation rather than
-presented as settled.
+account. Flagged `NEEDS YOUR DETERMINATION` since this specific
+metric-to-theory mapping is an interpretive call; the user has since
+reviewed the paragraph, made light edits of their own, and confirmed they
+are happy with the mapping as stated. No longer an open determination.
 
 **Response**: We have added language explicitly linking our theoretical
 expectations to specific centrality metrics: betweenness and closeness
@@ -435,15 +512,16 @@ response letter itself.
 > GBM is hierarchical, and it would be useful to better translate between
 > that hierarchical structure and the flattened network."*
 
-**Status**: DONE — prose added (Session 21), flagged `NEEDS YOUR
-DETERMINATION`. A new paragraph in "## Belief Measures" (right after the
-`sciconsensus` bullet) acknowledges the item's naturalistic, non-primed
-wording differs from the standard 97%-consensus framing, citing van der
-Linden et al. (2019) on the gateway belief model. It's framed as a
-methodological distinction rather than an apology, but how far to lean into
-"this is a deliberate contribution" language vs. a more cautious
-limitations framing is flagged as your call — both framings were considered
-and are worth weighing against how confident you want to sound here.
+**Status**: DONE and CONFIRMED (Session 21 prose; user confirmed Session 22).
+A new paragraph in "## Belief Measures" (right after the `sciconsensus`
+bullet) acknowledges the item's naturalistic, non-primed wording differs
+from the standard 97%-consensus framing, citing van der Linden et al. (2019)
+on the gateway belief model, and now also notes the measure's similarity to
+the one used by Lee et al. (2024). Flagged `NEEDS YOUR DETERMINATION` on how
+far to lean into "deliberate contribution" framing vs. a more cautious
+limitations framing; the user has since reviewed the paragraph, made light
+edits of their own, and confirmed they are happy with the framing as stated.
+No longer an open determination.
 
 **Response**: We have added a paragraph acknowledging that our measure of
 perceived scientific consensus differs from the standard "97%" framing used
@@ -495,13 +573,15 @@ below, part of the same subsection).
 > *"When comparing the centrality measures across variables, statistical
 > tests should be done."*
 
-**Status**: DONE — both analytically and in prose (Session 21), flagged
-`NEEDS YOUR DETERMINATION` on one downstream point.
+**Status**: DONE — both analytically and in prose (Session 21); the
+downstream rank-claim-hedging determination flagged in Session 21 was
+resolved by the user in Session 22 (see below).
 
 `scripts/climate_ggm.R` runs pairwise bootstrap difference tests
 (`differenceTest()`, nonparametric bootstrap) for every node pair, for both
-strength and betweenness, now reported in the "## GGM Robustness Checks"
-subsection:
+strength and betweenness, now reported directly in the main centrality
+results discussion (moved there in Session 22 — see "Manuscript changes"
+below):
 
 - **Strength**: 82 of 136 pairs are significantly different.
 - **Betweenness**: 31 of 136 pairs are significantly different.
@@ -513,26 +593,40 @@ subsection:
 - **Among the top-5 strength nodes** (egal, risk, IntAgree, Tax, EPA):
   **only Tax vs. EPA** reaches significance; the rest do not.
 
-**Implication, flagged `NEEDS YOUR DETERMINATION`**: the new subsection
-reports these difference-test counts as a fact, but does not itself soften
-"most central" rank-claims made elsewhere in the paper (Introduction,
-Results, Discussion) — the "egal is the most central node" / "EPA has the
-highest strength" framing is true as a point estimate but arguably should be
-stated more cautiously given the CI overlap. Whether/where to add hedging
-language around those specific rank claims touches the whole document, not
-just this subsection, so it was left to you rather than edited unilaterally.
-The exploratory-framing Discussion paragraph (R2-1, Session 18) already
-gestures at this nuance, but a document-wide consistency pass has not been
-done.
+**Resolved (Session 22)**: through Session 21, the "## GGM Robustness
+Checks" subsection reported these difference-test counts as a fact but did
+not itself soften "most central" rank-claims made elsewhere in the paper.
+The user directed two changes: (1) the difference-test paragraph was moved
+out of the Robustness Checks subsection and into the main centrality-results
+discussion, immediately after the betweenness/closeness/strength paragraphs
+it qualifies, so the caveat sits right next to the claims it bears on rather
+than several paragraphs later; and (2) "most central" language was softened
+at every point in the document where it appeared — Introduction summary
+("...have the highest point estimates for centrality..., though pairwise
+comparisons show these ranks are not always statistically distinguishable
+from several other beliefs"), Results ("egalitarianism has the highest point
+estimate for betweenness centrality" rather than "...by a wide margin"), and
+Discussion ("egalitarianism had the highest point estimate...though, as
+noted above, this rank is not statistically distinguishable from several
+other nodes"). The strength-centrality claims were hedged consistently with
+the betweenness claims (few of the top-5 pairwise comparisons reach
+significance for strength either, so that ranking is flagged with the same
+caution) rather than treated as more solid just because more pairs overall
+were significant in the full 136-pair comparison.
 
 **Response**: We conducted pairwise bootstrap difference tests for all
-node pairs on both strength and betweenness centrality, as requested; the
-results (reported in the new "GGM Robustness Checks" subsection) show that
-most pairwise differences among the top-ranked nodes do not reach
-statistical significance, and we discuss this directly in the Discussion in
-the context of our exploratory framing.
-**Manuscript changes**: "## GGM Robustness Checks" subsection (Results),
-`manuscript/climate-beliefs.qmd` — added Session 21.
+node pairs on both strength and betweenness centrality, as requested. The
+results show that most pairwise differences among the top-ranked nodes do
+not reach statistical significance; we report this finding directly
+alongside our centrality results (rather than in a separate robustness
+subsection) and have revised "most central" language throughout the
+Introduction, Results, and Discussion to describe point estimates rather
+than statistically distinguishable ranks.
+**Manuscript changes**: pairwise difference-test paragraph moved from "##
+GGM Robustness Checks" into the main centrality-results discussion; "most
+central" language softened in the Introduction summary paragraph, the
+betweenness/closeness/strength paragraphs, and the Discussion,
+`manuscript/climate-beliefs.qmd` (Session 22).
 
 ---
 
@@ -559,16 +653,17 @@ the per-item sections above for exact locations.
 2. ~~**R2-2**~~ — finalized as plain prose (Session 20).
 3. ~~**R2-5 → R2-1**~~ — R2-1's exploratory framing adopted, hypotheses
    section removed (Session 20); R2-5's difference-test results now reported
-   in "## GGM Robustness Checks" (Session 21, flagged for a document-wide
-   rank-claim hedging pass — see R2-5 above).
+   alongside the main centrality results, and the document-wide rank-claim
+   hedging pass flagged in Session 21 is done (Session 22).
 4. ~~**R1-3**~~ — causal-language pass done (Session 21).
-5. ~~**R2-3**~~ — prose added, flagged for framing determination (Session 21).
-6. ~~**R1-4**~~ — transparency statement added, flagged for access-mechanism
-   determination (Session 21).
-7. ~~**R1-6, R1-8**~~ — prose added, both flagged for tone/mapping
-   determination (Session 21). **R1-5, R1-7** — flagged, not edited
-   (Session 21); these need your own read-through, not just a
-   confirmation.
+5. ~~**R2-3**~~ — prose added (Session 21), confirmed by user (Session 22).
+6. ~~**R1-4**~~ — transparency statement added, **still flagged** for
+   access-mechanism determination (Session 21) — not yet resolved.
+7. ~~**R1-6**~~ — prose added (Session 21), confirmed by user (Session 22).
+   ~~**R1-8**~~ — prose added, **still flagged** for tone determination
+   (Session 21) — not yet resolved. ~~**R1-5**~~ — restructured per user
+   direction (Session 22). **R1-7** — still flagged, not edited (Session
+   21); needs the user's own read-through, not just a confirmation.
 8. ~~**R2-4**~~ — LASSO robustness comparison reported (Session 21).
 
 *(The 85-vs-89 edge count is resolved and the manuscript already updated to
