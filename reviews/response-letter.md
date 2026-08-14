@@ -12,16 +12,85 @@ restructuring pass; see below) and **R2-4/R2-5's rank-claim-hedging
 determination is also resolved** (the user directed the fix; see below). For
 the remaining items where the prose makes a genuine judgment call — tone,
 framing, or emphasis — user determinations are now in: **R1-6 and R2-3 were
-confirmed as-is by the user** (no further edit needed), while **R1-4 and
-R1-8 remain open**, marked with an in-source HTML comment
-(`<!-- NEEDS YOUR DETERMINATION: ... -->`), invisible in all three rendered
-formats, at the exact paragraph in question. One item (R1-7) remains an
-open-ended trimming request with no specific target the user has not yet
-acted on; it is still flagged (`<!-- FLAGGED, NOT EDITED: ... -->`) rather
-than edited unilaterally.
+confirmed as-is by the user** (no further edit needed). **R1-7, R1-4, and
+R1-8 are all now DONE (Session 23)**: R1-7 via an actual trimming pass on
+"## Belief System Network Analysis"; R1-4 via the user confirming the venue
+is double-blind and the manuscript committing to a public GitHub repository,
+hidden until publication; and R1-8 via tightening the contribution paragraph
+to name the paper's specific organizing finding rather than stating it at a
+general level. See each item's entry below for detail. **Every R1/R2 item
+is now resolved except one structural question noted under R2-1**: whether
+to adopt the "## Theoretical Expectations" framing in place of "##
+Hypotheses" was already decided in Session 20 (the Hypotheses section and
+H1/H2/H3 blockquotes were removed; only Theoretical Expectations remains in
+the manuscript today) — an earlier note in this letter's R2-1 entry
+incorrectly described that decision as still open as of Session 23; that
+note has been corrected.
 See `reviews/review-response-plan.md` for the original point-by-point plan
 this letter is built from, and `LOG.md` Sessions 13-21 for exactly what was
 added and why, session by session.
+
+> ℹ️ **Session 23 — GGM/BN Discussion narrative tightened; Introduction and
+> abstract rewritten to a single takeaway.** The user was concerned that
+> presenting the GGM and BN results together was muddying the paper rather
+> than clarifying it, and asked to think through whether to (a) tighten the
+> presentation or (b) argue the undirected GGM alone was the right method and
+> de-emphasize the BN. Decision: (a) — the BN direction was requested by R2-2
+> and already run, and the GGM-BN divergence itself (which beliefs are
+> central regardless of model, which are not) is a stronger answer to R2-2's
+> "is this a method artifact" question than an a priori justification for
+> skipping it would be. Concretely:
+> - **Discussion restructured**: three paragraphs that separately asserted,
+>   restated, and then retracted the claim that egalitarianism's betweenness
+>   centrality is "consistent with a hierarchical account" (the reader saw
+>   the hierarchy-consistent reading built up twice before the BN paragraph
+>   walked it back a third time) were consolidated into two paragraphs, so
+>   the claim and its BN complication appear together. Also cut a duplicate
+>   betweenness/closeness definition and a "cluster of beliefs, not any
+>   single belief" sentence that repeated one already stated earlier in the
+>   Discussion. Both changes are marked with in-source
+>   `<!-- SUGGESTED RESTRUCTURING (this session) -->` comments (invisible in
+>   rendered output) for the user's voice/tone review.
+> - **"Cluster of beliefs" sentence completed**: an unfinished sentence in
+>   the Discussion ("The cluster of beliefs that are central in both the GGM
+>   and the Bayesian network include ...") was filled in with individualism,
+>   perceived climate risk, and support for an international agreement (the
+>   three nodes prominent in both models), noting egalitarianism is GGM-only.
+> - **Introduction's closing sentence rewritten**: replaced "Whether beliefs
+>   are better understood as organized hierarchically or as a network
+>   therefore appears to depend on the specific belief and on the choice
+>   between an undirected and a directed model" with an explicit
+>   one-sentence takeaway naming which beliefs are robust across both models
+>   (individualism, perceived climate risk, support for an international
+>   agreement) versus model-dependent (egalitarianism) -- directly responding
+>   to R2-1's "laundry list, no clear takeaway" complaint using the BN
+>   comparison itself as the organizing claim.
+> - **`manuscript/abstract.md` updated to match**: now describes the study as
+>   estimating both the GGM and a companion Bayesian network, replaces the
+>   flat "egalitarianism, EPA, and risk are most central" claim with the
+>   robust-vs-model-dependent finding, and cuts a closing sentence
+>   ("these findings support the importance of cultural worldviews in shaping
+>   beliefs...") that used the causal language R1-3 already flagged elsewhere
+>   in the manuscript.
+> See the updated R2-1 and R2-2 entries below for how this affects their
+> status.
+>
+> **Follow-up copyedit pass (same session)**: the user then hand-edited the
+> Introduction's closing two sentences directly, through several rounds. Net
+> effect on wording (content unchanged from the summary above): the sentence
+> now explicitly states "egalitarianism's apparent centrality holds only in
+> the undirected model" rather than leaving that contrast implicit; the
+> closing claim was softened from an early draft that read as "networks open
+> up understanding... as opposed to the limiting assumptions of a
+> hierarchical approach" (flagged as overclaiming relative to the Discussion,
+> which explicitly says the evidence "does not simply favor a network account
+> over a hierarchical one") to "a network approach complements and does not
+> displace a hierarchical one, but comparing the two reveals which beliefs'
+> structural importance depends on modeling assumptions and which does not.
+> Such a distinction is one a hierarchical approach alone cannot make." A
+> subject-verb agreement slip ("does not displaces") and a double-"which"
+> construction were caught and fixed along the way. The final wording now
+> matches the hedged framing used in the Discussion and the abstract.
 
 > ℹ️ **Session 22 — R1-5 and R2-4/R2-5 resolved; manuscript retitled; BN
 > methods citations expanded.** The user made a hands-on editing pass over
@@ -128,9 +197,11 @@ as parallel traditions (R1-5); revised causal language throughout to reflect
 the cross-sectional, undirected design (R1-3); added LASSO and centrality
 robustness analyses, including pairwise significance tests, and revised
 "most central" language throughout to reflect where those tests show ranks
-are not statistically distinguishable (R2-4, R2-5) [PLACEHOLDER — extend
-once R1-4's data/code access-mechanism decision, R1-7's Methods trimming,
-and R1-8's contribution-paragraph tone are finalized].
+are not statistically distinguishable (R2-4, R2-5); streamlined the Methods
+section for readability (R1-7); committed to a public data/code repository,
+hidden until publication (R1-4); and sharpened the Discussion's articulation
+of the paper's contribution to policy process research and climate
+communication (R1-8).
 
 Reviewer comments are reproduced in italics below, followed by our response.
 ```
@@ -226,33 +297,41 @@ GGM.
 > manuscript should... include robustness checks or stability analyses
 > beyond the reported bootstrap confidence intervals."*
 
-**Status**: DONE — prose added (Session 21), one point flagged for your
-determination.
+**Status**: DONE (Session 23) — prose added (Session 21), access-mechanism
+determination resolved by the user (Session 23).
 
 - **Robustness/stability checks beyond bootstrap CIs** — DONE, both
   analytically and in prose. See the new "## GGM Robustness Checks" Results
   subsection (R2-4/R2-5 below) reporting CS coefficients, the EBIC gamma
   sweep, and the CV-LASSO comparison.
-- **Preregistration and a priori power analysis** — DONE in prose. A new
-  "## Data and Code Availability" subsection (end of "## Belief System
-  Network Analysis") states plainly that the study was not preregistered
-  and no a priori power analysis was conducted, and offers the CS
-  coefficients as the closest available substitute adequacy check, citing
-  Epskamp et al. (2018).
-- **Data/code availability statement** — prose added, but **flagged
-  `NEEDS YOUR DETERMINATION`** in the manuscript: the same new subsection
-  states that data/code are version-controlled with `renv`-pinned packages,
-  but stops short of committing to a specific access mechanism (public repo
-  URL vs. available-on-request) since that's a decision about what you want
-  to commit to publicly, not something to decide unilaterally.
+- **Preregistration and a priori power analysis** — DONE in prose. Note the
+  location has changed since Session 21: this content is no longer a
+  separate "## Data and Code Availability" subsection at the end of "##
+  Belief System Network Analysis" -- at some point it was consolidated into
+  a footnote on the data-description paragraph in "# Data and Analysis"
+  instead (the footnote attached to the sentence ending "...their
+  ideological and partisan attachments"). It states plainly that the study
+  was not preregistered and no a priori power analysis was conducted, and
+  offers the CS coefficients as the closest available substitute adequacy
+  check, citing Epskamp et al. (2018).
+- **Data/code availability statement — RESOLVED (Session 23)**: the same
+  footnote now commits to a specific access mechanism rather than leaving it
+  open. The user confirmed the target venue uses double-blind review, so the
+  statement reads that data and analysis code (survey data, all analysis
+  scripts, the manuscript source, `renv`-pinned package versions) are
+  organized in a version-controlled GitHub repository, "hidden until
+  publication" (revised this session from an earlier "hidden for blind
+  peer-review" phrasing, since the repo should stay hidden through
+  acceptance and production, not just the review window itself).
 
-**Response**: We have added a new "Data and Code Availability" subsection
-disclosing that the study was not preregistered and no a priori power
-analysis was conducted (offering bootstrap correlation-stability
-coefficients as the standard adequacy check for this literature instead),
-and describing the version-controlled, reproducible analysis pipeline. We
-have also added a new robustness section reporting CS coefficients, an EBIC
-regularization-sensitivity sweep, and a cross-validated LASSO comparison, as
+**Response**: We have added a footnote disclosing that the study was not
+preregistered and no a priori power analysis was conducted (offering
+bootstrap correlation-stability coefficients as the standard adequacy check
+for this literature instead), and describing the version-controlled,
+reproducible analysis pipeline, including a commitment to make the data and
+code repository public upon publication. We have also added a new
+robustness section reporting CS coefficients, an EBIC regularization-
+sensitivity sweep, and a cross-validated LASSO comparison, as
 requested.
 **Manuscript changes**: New "## Data and Code Availability" subsection
 (end of "## Belief System Network Analysis"); new "## GGM Robustness Checks"
@@ -334,15 +413,42 @@ policy-specific beliefs.
 > *"The methods section is technically sound but could be streamlined for
 > readability..."*
 
-**Status**: FLAGGED, NOT EDITED (Session 21). "Streamline" isn't specific
-enough to act on safely — cutting content risks removing something you want,
-with no clear target for what to trim vs. keep. An HTML comment (invisible
-in rendered output) is inserted at the "## Belief System Network Analysis"
-heading for your own read-through with an eye toward tightening. No text
-was changed or cut.
+**Status**: DONE (Session 23). Flagged, not edited, through Session 22 for
+the reasons above; the user then directed a concrete trimming pass and
+worked through it interactively. Changes to "## Belief System Network
+Analysis":
+- The opening paragraph of general network-theory definitions (nodes/edges,
+  directed/undirected, weighted/unweighted) was cut from ~120 to ~45 words,
+  since it largely repeated ground already covered in "Belief Systems and
+  Belief System Networks" earlier and the undirected/directed distinction is
+  re-explained concretely when the GGM and BN are introduced anyway.
+- The Markov-equivalence/causal-identification caveat paragraph had its
+  algorithm-specific technical detail (score-based vs. constraint-based,
+  Markov equivalence) moved to a footnote, mirroring the footnote already
+  used for the discretization detail earlier in the section; the core
+  causal-identification caveat stayed in the main text since it's referenced
+  again in Results and Discussion.
+- The belief-type breakdown (deep core/policy core/secondary) that
+  previously sat in a separate Methods roadmap paragraph was relocated to
+  the Results section's opening paragraph, merged with the sentence
+  describing @fig-beliefNetNetwork's color coding — removing a redundant
+  "results are shown... results depicted show..." construction in the
+  original Results paragraph and eliminating the double-preview of GGM/BN
+  that resulted once the Methods section gained its own transition sentence.
+- A pre-existing "the the" typo (unrelated to this pass, caught during a
+  final full-section read) was also fixed.
+No substantive methodological content was cut — every trim either removed
+material duplicated elsewhere or moved technical detail to a footnote.
 
-**Response**: [PLACEHOLDER — write once you've done your own tightening
-pass, or decide this doesn't need one]
+**Response**: We have streamlined the Methods section for readability,
+consolidating redundant framing, moving dense algorithm-specific detail to
+footnotes, and relocating the belief-type category breakdown to where it is
+actually used (the Results figure description) rather than previewing it a
+second time in Methods.
+**Manuscript changes**: "## Belief System Network Analysis" section,
+`manuscript/climate-beliefs.qmd` — trimmed and reorganized across four
+paragraphs; Results section's opening paragraph updated to absorb the
+relocated belief-type breakdown (Session 23).
 
 ---
 
@@ -352,17 +458,26 @@ pass, or decide this doesn't need one]
 > findings advance debates within both policy process research and climate
 > communication."*
 
-**Status**: DONE — prose added (Session 21), flagged `NEEDS YOUR
-DETERMINATION`. A new Discussion paragraph connects the findings to policy
-process research and climate communication debates directly. Flagged
-because the right tone/emphasis for a contribution claim like this is a
-judgment call, not something to assert with high confidence on your behalf.
+**Status**: DONE (Session 23). Prose added (Session 21), flagged `NEEDS YOUR
+DETERMINATION` for tone/emphasis since a contribution claim like this is a
+judgment call. Resolved (Session 23): the policy-process half of the
+paragraph was tightened to name the paper's specific organizing finding
+(individualism, perceived climate risk, and support for an international
+agreement are robustly central regardless of model; egalitarianism's
+centrality is model-dependent) rather than staying at the general "the
+choice between hierarchical and network conceptions may depend on the
+specific beliefs under study" level — tying this contribution paragraph
+directly to the same claim now anchoring the Introduction and abstract
+(see R2-1). The `NEEDS YOUR DETERMINATION` comment has been removed from
+the source.
 
 **Response**: We have added a paragraph to the Discussion explicitly
 articulating how these findings speak to debates in both policy process
-research and climate communication scholarship.
+research and climate communication scholarship, grounded in our specific
+finding that some beliefs' structural importance is robust to modeling
+choice while others' is not.
 **Manuscript changes**: Discussion section, `manuscript/climate-beliefs.qmd`
-— one new paragraph (Session 21).
+— one new paragraph (Session 21), tightened (Session 23).
 
 ---
 
@@ -377,12 +492,14 @@ methods to be well done" — worth acknowledging in the cover letter.)*
 > find the one sentence takeaway... the paper reads as a laundry list of
 > findings."*
 
-**Status**: DRAFT PROSE ADDED — pending your review and rewrite into final
-voice. Went further than "a single organizing narrative" — the user opted to
-sketch, and then commit to drafting, a full **exploratory reframing** that
-drops the H1/H2/H3 confirmatory hypothesis-testing structure entirely,
-directly addressing the "laundry list" complaint at its structural root
-rather than just rewriting the framing sentence.
+**Status**: DONE (Session 23). Went further than "a single organizing
+narrative" — the user opted to sketch, and then commit to drafting, a full
+**exploratory reframing** that drops the H1/H2/H3 confirmatory
+hypothesis-testing structure entirely, directly addressing the "laundry
+list" complaint at its structural root rather than just rewriting the
+framing sentence. The exploratory framing was adopted in Session 20; the
+Session 23 Introduction/abstract rewrite (below) gave it the single
+organizing claim it had been missing.
 
 Three draft passages are now in `manuscript/climate-beliefs.qmd`, each
 tagged `[DRAFT -- R2-1 response, please revise into your own voice]`:
@@ -413,14 +530,45 @@ if the replacement narrative (centered on which specific beliefs are
 structurally distinctive) reads as tighter than what it replaces, not just
 different.
 
-**Response**: [PLACEHOLDER — once you've decided whether to adopt this
-framing (and finished any remaining downstream Discussion edits — see
-`LOG.md` Session 16 for paragraphs not yet touched), adapt the core argument
-for the response-letter reply here]
-**Manuscript changes**: Introduction (new paragraph), "## Hypotheses" →
-optionally "## Theoretical Expectations" (new alternative section),
-Discussion (new paragraph) in `manuscript/climate-beliefs.qmd`. See `LOG.md`
-Sessions 16-18.
+**Update (Session 23)**: that missing organizing narrative is now written.
+The Introduction's closing paragraph and the abstract both end on the same
+explicit sentence: individualism, perceived climate risk, and support for an
+international agreement are robustly central regardless of whether the
+network is modeled as undirected (GGM) or directed (BN), while
+egalitarianism's apparent centrality does not survive the directed model.
+This gives the paper a single, falsifiable-sounding claim to organize around
+instead of a per-metric list of top nodes, and it uses the BN comparison
+(R2-2) as the evidence for that claim rather than treating the BN as a
+separate robustness check.
+
+**Correction**: the sentence originally here claimed the "## Hypotheses" vs.
+"## Theoretical Expectations" structural decision (Sessions 16-18) was
+"unchanged and still open" as of Session 23. That was wrong — checked
+directly against the manuscript while resolving R1-8: there is no "##
+Hypotheses" heading and no H1/H2/H3 blockquotes anywhere in
+`manuscript/climate-beliefs.qmd`; only "## Theoretical Expectations"
+remains. The "Suggested Revision Order" checklist further down this same
+letter already had this right ("hypotheses section removed (Session 20)")
+— this entry just hadn't been updated to match. R2-1 is fully resolved:
+the exploratory framing was adopted in Session 20, and the Session 23
+Introduction/abstract rewrite gave it the single organizing claim it was
+missing.
+
+**Response**: We have revised the Introduction and abstract to lead with a
+single organizing finding: certain beliefs (individualism, perceived climate
+risk, support for an international agreement) are structurally central
+regardless of modeling assumptions, while others (egalitarianism) are
+prominent only under an undirected model -- reframing the paper's
+contribution around which beliefs' importance is robust to method rather
+than around a list of per-metric top-ranked beliefs. [PLACEHOLDER -- extend
+once the Hypotheses/Theoretical Expectations restructuring decision is
+finalized]
+**Manuscript changes**: Introduction (closing paragraph, new final
+sentence), `manuscript/abstract.md` (rewritten) -- Session 23. Also
+Introduction (new paragraph), "## Hypotheses" → optionally "## Theoretical
+Expectations" (new alternative section), Discussion (new paragraph) in
+`manuscript/climate-beliefs.qmd` from Sessions 16-18, still pending the
+structural decision.
 
 ---
 
@@ -494,13 +642,47 @@ R2-2 response, please revise into your own voice]`):
   network sidesteps needing to pre-classify beliefs into tiers, rather than
   resolving the fuzziness directly).
 
+**Update (Session 23)**: the Discussion's treatment of the GGM/BN comparison
+was tightened. Previously, egalitarianism's betweenness centrality was
+described as "consistent with a hierarchical account" in two separate
+paragraphs before a third paragraph (the BN one) retracted that reading --
+three passes over the same claim, which read as the paper arguing with
+itself rather than presenting one finding. Those three paragraphs are now
+two: the first states the egal finding without yet claiming it confirms
+hierarchy, explicitly deferring that question; the second merges the
+GGM-only-vs-both-models contrast with the `IntAgree` counter-hierarchy
+finding into a single continuous argument, closing on "depends on the
+specific belief and on the specific model used to estimate it" rather than
+repeating the "cluster of beliefs" conclusion already stated earlier. The
+GGM-BN comparison is now also the paper's stated single takeaway (see R2-1
+above), rather than a self-contained robustness check sitting alongside the
+main GGM narrative.
+
+**Update (Session 23) — concrete "fuzziness" example added**: R2's pg.-5
+fuzziness point was previously answered only in the abstract ("the network
+sidesteps needing to pre-classify beliefs into tiers, rather than resolving
+the fuzziness directly" — see above). The user has now added a concrete
+example directly to the paragraph R2 was referring to, in "# Belief Systems
+and Belief System Networks" (the "one issue with the hierarchical
+conceptualization is that the boundaries between different types of beliefs
+are fuzzy" sentence): environmental orientation is treated as a deep core
+belief in this paper because it could plausibly shape views across several
+environmental issues (climate change, energy production, endangered species
+protection), but could just as reasonably be classified as a policy core
+belief if "the environment" is treated as a policy issue itself. This gives
+the fuzziness claim a concrete illustration instead of an assertion, and
+ties directly to R2's specific complaint that it was "unclear... how that is
+solved by the network."
+
 **Response**: [PLACEHOLDER — once finalized, adapt the Discussion paragraph's
 argument for the response-letter reply here]
 **Manuscript changes**: Methods (new paragraph), Results (new subsection +
 figure + table), Discussion (new paragraph) in
 `manuscript/climate-beliefs.qmd`. See `LOG.md` Session 13 for full detail,
 including a debugging note on figure-embedding that isn't relevant to the
-response letter itself.
+response letter itself. Discussion paragraphs further restructured Session
+23 (see above); concrete fuzziness example added to "# Belief Systems and
+Belief System Networks" (Session 23).
 
 ---
 
@@ -657,13 +839,15 @@ the per-item sections above for exact locations.
    hedging pass flagged in Session 21 is done (Session 22).
 4. ~~**R1-3**~~ — causal-language pass done (Session 21).
 5. ~~**R2-3**~~ — prose added (Session 21), confirmed by user (Session 22).
-6. ~~**R1-4**~~ — transparency statement added, **still flagged** for
-   access-mechanism determination (Session 21) — not yet resolved.
+6. ~~**R1-4**~~ — transparency statement added (Session 21), access-mechanism
+   determination resolved (Session 23): public GitHub repository, hidden
+   until publication.
 7. ~~**R1-6**~~ — prose added (Session 21), confirmed by user (Session 22).
-   ~~**R1-8**~~ — prose added, **still flagged** for tone determination
-   (Session 21) — not yet resolved. ~~**R1-5**~~ — restructured per user
-   direction (Session 22). **R1-7** — still flagged, not edited (Session
-   21); needs the user's own read-through, not just a confirmation.
+   ~~**R1-8**~~ — prose added (Session 21), tone determination resolved
+   (Session 23): contribution paragraph tightened to name the paper's
+   specific organizing finding. ~~**R1-5**~~ — restructured per user
+   direction (Session 22). ~~**R1-7**~~ — Methods section trimmed per user
+   direction (Session 23).
 8. ~~**R2-4**~~ — LASSO robustness comparison reported (Session 21).
 
 *(The 85-vs-89 edge count is resolved and the manuscript already updated to

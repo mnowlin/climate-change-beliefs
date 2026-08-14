@@ -9,7 +9,7 @@ partisanship, environmental orientation, perceived scientific consensus, and
 climate policy preferences, then compares betweenness, closeness, and strength
 centrality to identify which beliefs are structurally most central.
 
-**Status**: Major revision requested — response to reviewers in progress (see `reviews/`).
+**Status**: Major revision requested — all reviewer items addressed and `reviews/response-letter.md` finalized; pending a final read-through before resubmission.
 
 ## Layout
 
