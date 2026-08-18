@@ -289,6 +289,11 @@ diff_between <- run_difference_tests(boot_nonpar, "betweenness")
 cat("-- Significant betweenness differences:",
     sum(diff_between$sig, na.rm = TRUE), "of", nrow(diff_between), "pairs\n")
 
+cat("\n-- Running pairwise difference tests for closeness...\n")
+diff_close <- run_difference_tests(boot_nonpar, "closeness")
+cat("-- Significant closeness differences:",
+    sum(diff_close$sig, na.rm = TRUE), "of", nrow(diff_close), "pairs\n")
+
 # Show which top nodes differ significantly from each other
 top_nodes <- cent_df$node[1:5]  # top 5 by betweenness
 
@@ -303,6 +308,12 @@ diff_strength %>%
   filter(node1 %in% top_strength & node2 %in% top_strength) %>%
   print()
 
+cat("\n-- Difference tests among top 5 closeness nodes:\n")
+top_close <- cent_df$node[order(-as.numeric(cent_df$closeness))][1:5]
+diff_close %>%
+  filter(node1 %in% top_close & node2 %in% top_close) %>%
+  print()
+
 # Plot difference tests using bootnet's built-in plot
 # (shows CI on difference for each pair; significant pairs shown in red)
 png("outputs/ggm_diff_strength.png", width = 2000, height = 2000, res = 300)
@@ -312,6 +323,14 @@ plot(boot_nonpar,
      order       = "sample")
 dev.off()
 cat("-- Saved: ggm_diff_strength.png\n")
+
+png("outputs/ggm_diff_closeness.png", width = 2000, height = 2000, res = 300)
+plot(boot_nonpar,
+     statistics  = "closeness",
+     plot        = "difference",
+     order       = "sample")
+dev.off()
+cat("-- Saved: ggm_diff_closeness.png\n")
 
 
 # -----------------------------------------------------------------------------
@@ -424,6 +443,7 @@ cat("  ggm_boot_edges.png\n")
 cat("  ggm_boot_centrality.png\n")
 cat("  ggm_boot_centrality_ci.png\n")
 cat("  ggm_diff_strength.png\n")
+cat("  ggm_diff_closeness.png\n")
 cat("  ggm_centrality_table.csv  <- use this in the BN comparison script\n")
 cat(strrep("=", 70), "\n")
 
@@ -440,6 +460,8 @@ top5_between_diff <- diff_between %>%
   dplyr::filter(node1 %in% top_nodes & node2 %in% top_nodes)
 top5_strength_diff <- diff_strength %>%
   dplyr::filter(node1 %in% top_strength & node2 %in% top_strength)
+top5_close_diff <- diff_close %>%
+  dplyr::filter(node1 %in% top_close & node2 %in% top_close)
 
 ggm_robustness <- list(
   n_edges           = sum(net$graph[upper.tri(net$graph)] != 0),
@@ -450,12 +472,18 @@ ggm_robustness <- list(
   diff_strength_n_pairs = nrow(diff_strength),
   diff_between_n_sig    = sum(diff_between$sig, na.rm = TRUE),
   diff_between_n_pairs  = nrow(diff_between),
+  diff_close_n_sig      = sum(diff_close$sig, na.rm = TRUE),
+  diff_close_n_pairs    = nrow(diff_close),
   top5_between_nodes    = top_nodes,
   top5_strength_nodes   = top_strength,
+  top5_close_nodes      = top_close,
   top5_between_n_sig    = sum(top5_between_diff$sig, na.rm = TRUE),
   top5_between_n_pairs  = nrow(top5_between_diff),
   top5_strength_n_sig   = sum(top5_strength_diff$sig, na.rm = TRUE),
-  top5_strength_n_pairs = nrow(top5_strength_diff)
+  top5_strength_n_pairs = nrow(top5_strength_diff),
+  top5_close_n_sig      = sum(top5_close_diff$sig, na.rm = TRUE),
+  top5_close_n_pairs    = nrow(top5_close_diff),
+  top5_close_diff       = top5_close_diff
 )
 
 save(ggm_robustness, file = "data/ggm_robustness_results.RData")
