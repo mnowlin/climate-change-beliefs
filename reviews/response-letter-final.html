@@ -1,0 +1,344 @@
+<title>Response to Reviewers</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --bg: #F8F6F0;
+    --surface: #FFFFFF;
+    --ink: #20242A;
+    --ink-2: #454C54;
+    --ink-muted: #757E87;
+    --accent: #2C4A66;
+    --accent-soft: #5D7C97;
+    --quote-bg: #EEF2F4;
+    --quote-border: #2C4A66;
+    --rule: #DDD6C6;
+    --rule-strong: #C7BEA8;
+    --serif: "Spectral", Georgia, "Iowan Old Style", "Times New Roman", serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14171A;
+      --surface: #1B1F24;
+      --ink: #ECE9E1;
+      --ink-2: #C7CCD2;
+      --ink-muted: #8B929B;
+      --accent: #8FB0CC;
+      --accent-soft: #6E8AA3;
+      --quote-bg: #1E2831;
+      --quote-border: #8FB0CC;
+      --rule: #313740;
+      --rule-strong: #3D444C;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #14171A;
+    --surface: #1B1F24;
+    --ink: #ECE9E1;
+    --ink-2: #C7CCD2;
+    --ink-muted: #8B929B;
+    --accent: #8FB0CC;
+    --accent-soft: #6E8AA3;
+    --quote-bg: #1E2831;
+    --quote-border: #8FB0CC;
+    --rule: #313740;
+    --rule-strong: #3D444C;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-variant-numeric: oldstyle-nums;
+  }
+
+  ::selection { background: var(--quote-bg); color: var(--ink); }
+
+  .page {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 4.5rem 1.75rem 6rem;
+    border-top: 3px double var(--rule-strong);
+    border-bottom: 3px double var(--rule-strong);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .kicker {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    margin: 0 0 0.9rem;
+  }
+
+  header.masthead {
+    text-align: center;
+    padding-bottom: 2.75rem;
+    margin-bottom: 2.75rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  header.masthead .kicker { justify-content: center; }
+  header.masthead h1 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(1.65rem, 1.2rem + 1.6vw, 2.15rem);
+    line-height: 1.28;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+    margin: 0 0 0.9rem;
+    color: var(--ink);
+  }
+  header.masthead .subtitle {
+    font-style: italic;
+    color: var(--ink-muted);
+    font-size: 0.98rem;
+    max-width: 34rem;
+    margin: 0 auto;
+    line-height: 1.55;
+  }
+
+  p { margin: 0 0 1.15em; color: var(--ink-2); }
+  .letter-open p:first-child {
+    font-family: var(--serif);
+    font-size: 1.08rem;
+    color: var(--ink);
+  }
+
+  section.reviewer { margin-top: 3.5rem; }
+
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin: 0 0 1.6rem;
+  }
+  .section-divider .kicker { margin: 0; white-space: nowrap; }
+  .section-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--rule-strong);
+  }
+
+  .ack { font-style: italic; color: var(--ink-muted); }
+
+  article.item {
+    margin: 2.4rem 0;
+    padding-left: 1.35rem;
+    border-left: 1px solid var(--rule);
+  }
+
+  .item-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 0.85rem;
+  }
+  .item-label .num {
+    display: inline-block;
+    color: var(--ink-muted);
+    margin-right: 0.5em;
+  }
+
+  blockquote {
+    margin: 0 0 1.15rem;
+    padding: 0.9rem 1.15rem;
+    background: var(--quote-bg);
+    border-left: 3px solid var(--quote-border);
+    border-radius: 0 3px 3px 0;
+  }
+  blockquote p {
+    font-style: italic;
+    color: var(--ink-2);
+    font-size: 0.98rem;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .response-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin: 0 0 0.5rem;
+  }
+
+  .stat {
+    font-variant-numeric: tabular-nums lining-nums;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  code {
+    font-family: var(--mono);
+    font-size: 0.88em;
+    background: var(--quote-bg);
+    padding: 0.05em 0.35em;
+    border-radius: 3px;
+    color: var(--ink);
+  }
+
+  footer.closing {
+    margin-top: 3.25rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--rule);
+  }
+  footer.closing p { font-style: italic; color: var(--ink-muted); }
+
+  @media (max-width: 560px) {
+    .page { padding: 3rem 1.15rem 4rem; }
+    body { font-size: 16px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { scroll-behavior: auto !important; }
+  }
+
+  a { color: var(--accent); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+
+<div class="page">
+
+  <header class="masthead">
+    <p class="kicker">Response to Reviewers</p>
+    <h1>What Beliefs are Central in the Climate Change Belief System Network?</h1>
+    <p class="subtitle">Previously submitted as &ldquo;The Centrality of Cultural Worldviews in the Climate Change Belief System Network&rdquo;</p>
+  </header>
+
+  <section class="letter-open">
+    <p>Dear Editor and Reviewers,</p>
+
+    <p>Thank you for the constructive and detailed feedback on my manuscript. I have revised the manuscript substantially in response, and I am grateful for the care both reviewers took in engaging with the analysis.</p>
+
+    <p>The most consequential change concerns the overall framing of the paper. Both reviewers, in different ways, pushed back on treating this analysis as a test of competing hypotheses. Reviewer 2 found it difficult to locate a single, convincing takeaway among three hypotheses, several belief types, and three network measures, and read the paper as a laundry list of findings; Reviewer 1 was similarly skeptical of language that treated the network results as confirming or disconfirming specific causal predictions, given the cross-sectional, undirected design. In direct response, I moved away from a confirmatory hypothesis-testing structure &mdash; the manuscript no longer presents three hypotheses to be supported or rejected. Instead, the same three theoretical accounts (a hierarchical account centered on deep core beliefs, the gateway belief model centered on perceived scientific consensus, and a solution-aversion account centered on policy preferences) now serve as theoretical anchors that informed which beliefs I included in the network and how I interpret their structural positions, within an explicitly exploratory analysis of which beliefs, and which types of beliefs, occupy the most structurally important positions in the network. This reframing let me organize the paper around a single, specific finding rather than a per-hypothesis scorecard &mdash; individualism, perceived climate risk, and support for an international climate agreement are robustly central regardless of whether the network is modeled as undirected (a Gaussian graphical model) or directed (a companion Bayesian network), while egalitarianism&rsquo;s apparent centrality holds only in the undirected model. I have retitled the manuscript from &ldquo;The Centrality of Cultural Worldviews in the Climate Change Belief System Network&rdquo; to &ldquo;What Beliefs are Central in the Climate Change Belief System Network?&rdquo; to reflect this shift, from a title asserting a specific belief&rsquo;s centrality to a title posing the open, exploratory question the paper now investigates.</p>
+
+    <p>Beyond this reframing, I made the following major changes. I reinterpreted the gateway belief model finding to distinguish structural centrality from causal gateway status, engaging recent work on the model&rsquo;s boundary conditions (R1-1); added a paragraph justifying the continued relevance of the 2017 data (R1-2); revised causal language throughout to reflect the cross-sectional, undirected design (R1-3); added a transparency statement covering preregistration, power analysis, and data/code availability, plus new robustness analyses (R1-4); restructured the literature review to integrate the hierarchical and network perspectives directly, rather than presenting them as parallel traditions (R1-5); streamlined the methods section for readability (R1-7); sharpened the discussion&rsquo;s articulation of the paper&rsquo;s contribution to policy process research and climate communication (R1-8); estimated a companion Bayesian network alongside the Gaussian graphical model to assess whether my conclusions depend on the choice of an undirected model (R2-2); added discussion of how my scientific-consensus measure differs from the standard operationalization used elsewhere in the gateway-belief-model literature (R2-3); added an EBIC regularization-sensitivity sweep and a cross-validated LASSO comparison (R2-4); and conducted pairwise bootstrap significance tests for all three centrality measures, revising &ldquo;most central&rdquo; language throughout to reflect where those tests show ranks are not statistically distinguishable (R2-5).</p>
+
+    <p>Reviewer comments are reproduced in italics below, followed by my response.</p>
+  </section>
+
+  <section class="reviewer" id="r1">
+    <div class="section-divider"><p class="kicker">Reviewer 1</p></div>
+
+    <p class="ack">I thank the reviewer for a thorough and constructive reading of the manuscript, and for pointing me toward literature that substantially strengthened my treatment of the gateway belief model.</p>
+
+    <article class="item">
+      <p class="item-label"><span class="num">R1&#8209;1</span>Gateway belief model framing</p>
+      <blockquote><p>&ldquo;&hellip;the theoretical and empirical implications of the model are not sufficiently developed&hellip; This creates a conceptual mismatch: centrality in a partial-correlation network does not directly correspond to causal &lsquo;gateway&rsquo; status. The current interpretation&hellip; is therefore too strong.&rdquo;</p></blockquote>
+      <p class="response-label">Response</p>
+      <p>I agree, and have revised my interpretation accordingly. The Discussion now explicitly distinguishes structural centrality, which is what my network models measure, from the causal, interventional claims at the center of the gateway belief model, which is typically tested through experimental or longitudinal designs rather than the cross-sectional data used here. I reframe the low centrality of perceived scientific consensus as consistent with, rather than contradicting, a gateway belief model whose effects are conditional rather than universal, drawing on the literature the reviewer suggested &mdash; G&ouml;bel et al. (2026) on the specific mechanisms and boundary conditions of consensus messaging, and Said et al. (2022, 2023) on the model&rsquo;s preregistered replication and its dependence on respondents&rsquo; engagement with the consensus message. I now state plainly that a belief can serve as a causal entry point for belief change without also being central to how beliefs are structurally organized at a given point in time, and that this reflects the difference between what a cross-sectional network can and cannot show, not a challenge to the gateway belief model itself.</p>
+    </article>
+
+    <article class="item">
+      <p class="item-label"><span class="num">R1&#8209;2</span>Temporal relevance of the 2017 data</p>
+      <blockquote><p>&ldquo;&hellip;the manuscript situates itself within a rapidly evolving literature on climate belief systems, including studies from the mid-2020s&hellip; the authors should more explicitly justify the continued relevance of these data.&rdquo;</p></blockquote>
+      <p class="response-label">Response</p>
+      <p>I have added a paragraph to the Data and Analysis section addressing this directly. Deep core beliefs such as cultural worldviews are theorized to be especially resistant to change, so the overall organization of the belief network should likely be comparatively stable even as specific policy debates evolve. This expectation is consistent with Lee et al. (2024), who find that the structure of the climate change belief network is largely consistent over time, particularly among Republicans and Democrats considered separately. I am careful not to overstate this point. Whether more recent shifts in polarization and climate discourse have altered the network&rsquo;s structure remains an open question, and I now explicitly call for replication of this analysis with more recent data.</p>
+    </article>
+
+    <article class="item">
+      <p class="item-label"><span class="num">R1&#8209;3</span>Centrality is not causal influence</p>
+      <blockquote><p>&ldquo;&hellip;it nonetheless employs language suggesting that certain beliefs &lsquo;drive&rsquo; or &lsquo;shape&rsquo; others. Given the cross-sectional and undirected nature of the model, such claims are not empirically warranted.&rdquo;</p></blockquote>
+      <p class="response-label">Response</p>
+      <p>I have revised this language throughout the manuscript. Centrality is now described consistently in structural terms &mdash; beliefs &ldquo;occupy structurally important positions&rdquo; or are &ldquo;structurally connected&rdquo; to other beliefs &mdash; rather than as beliefs that &ldquo;drive&rdquo; or &ldquo;shape&rdquo; one another, reflecting the cross-sectional, undirected nature of the Gaussian graphical model. Where I discuss the companion Bayesian network&rsquo;s directed edges, I am similarly explicit that &ldquo;upstream&rdquo; and &ldquo;downstream&rdquo; describe an estimated ordering under the model&rsquo;s search criteria, not a causal claim, since cross-sectional survey data of this kind cannot identify edge direction causally.</p>
+    </article>
+
+    <article class="item">
+      <p class="item-label"><span class="num">R1&#8209;4</span>Open science and transparency</p>
+      <blockquote><p>&ldquo;There is no indication of preregistration, no a priori power analysis, and no clear statement regarding data and code availability&hellip; the manuscript should&hellip; include robustness checks or stability analyses beyond the reported bootstrap confidence intervals.&rdquo;</p></blockquote>
+      <p class="response-label">Response</p>
+      <p>I have added a footnote to the Data and Analysis section disclosing that the study was not preregistered and that no a priori power analysis was conducted. As a post hoc check on whether the sample size supports stable centrality estimates, I report bootstrap correlation-stability coefficients for each centrality measure, all at or above the 0.50 threshold Epskamp et al. (2018) recommend. The same footnote commits to making the survey data, analysis scripts, and manuscript source available in a version-controlled GitHub repository upon publication, with package versions pinned via <code>renv</code> to support exact reproducibility. I have also added robustness analyses beyond the bootstrap confidence intervals, reported directly alongside the centrality results &mdash; an EBIC regularization-sensitivity sweep across five tuning values, which shows non-zero edge counts ranging from <span class="stat">79</span> to <span class="stat">105</span> while the node with the highest point-estimated strength, betweenness, and closeness centrality remains unchanged at every value tested; and a cross-validation-selected network (via the <code>huge</code> package), which has a materially similar level of sparsity to the EBIC-selected network (<span class="stat">87</span> vs. <span class="stat">85</span> edges).</p>
+    </article>
+
+    <article class="item">
+      <p class="item-label"><span class="num">R1&#8209;5</span>Literature review integration</p>
+      <blockquote><p>&ldquo;&hellip;the literature review is comprehensive but could be more focused, particularly in integrating hierarchical and network perspectives rather than presenting them in parallel.&rdquo;</p></blockquote>
+      <p class="response-label">Response</p>
+      <p>I have restructured the &ldquo;Belief Systems and Belief System Networks&rdquo; section accordingly. It now introduces the hierarchical and network traditions together at the outset, then, for each type of belief (deep core, policy core, and secondary), presents how that belief is understood under a hierarchical account immediately alongside how the same belief is instead treated under a network account, rather than presenting a full hierarchical block followed by a full network block. This also let me address a related point raised later in the review, about the fuzziness of category boundaries in a hierarchical account &mdash; I now illustrate this concretely, noting that I treat environmental orientation as a deep core belief because it could plausibly shape views across several environmental issues, but that other scholars could reasonably treat it as a policy core belief instead, with &ldquo;the environment&rdquo; itself seen as a policy issue. A network approach avoids needing to resolve this classification question, since a belief&rsquo;s structural importance is determined empirically from its connections rather than assigned from its category.</p>
+    </article>
+
+    <article class="item">
+      <p class="item-label"><span class="num">R1&#8209;6</span>Precision linking theoretical expectations to centrality metrics</p>
+      <blockquote><p>&ldquo;The hypotheses would benefit from greater precision, especially in linking theoretical expectations to specific centrality metrics.&rdquo;</p></blockquote>
+      <p class="response-label">Response</p>
+      <p>In connection with the exploratory reframing described above, the &ldquo;Theoretical Expectations&rdquo; section now states explicitly which centrality measures most directly reflect each theoretical account. Betweenness and closeness centrality, which capture a belief&rsquo;s role in bridging and quickly reaching other beliefs, most directly reflect the constraining, foundational role a hierarchical account attributes to deep core beliefs. Strength centrality, which reflects the number and magnitude of a belief&rsquo;s direct connections, more directly reflects the pattern a solution-aversion account would predict for policy preferences.</p>
+    </article>
+
+    <article class="item">
+      <p class="item-label"><span class="num">R1&#8209;7</span>Methods section readability</p>
+      <blockquote><p>&ldquo;The methods section is technically sound but could be streamlined for readability&hellip;&rdquo;</p></blockquote>
+      <p class="response-label">Response</p>
+      <p>I have streamlined the &ldquo;Belief System Network Analysis&rdquo; section. The opening discussion of general network-theory definitions was trimmed substantially, since it had largely repeated ground already covered earlier in the paper. Algorithm-specific technical detail on the Bayesian network&rsquo;s structure-learning procedure was moved to footnotes, mirroring a footnote already used for a related discretization detail. No substantive methodological content was removed; the trims either eliminated material duplicated elsewhere or relocated technical detail out of the main text.</p>
+    </article>
+
+    <article class="item">
+      <p class="item-label"><span class="num">R1&#8209;8</span>Discussion&rsquo;s articulation of contribution</p>
+      <blockquote><p>&ldquo;&hellip;the discussion would benefit from a clearer articulation of how the findings advance debates within both policy process research and climate communication.&rdquo;</p></blockquote>
+      <p class="response-label">Response</p>
+      <p>I have sharpened the Discussion&rsquo;s closing paragraphs to tie my contribution to the paper&rsquo;s specific organizing finding, rather than stating it at a general level. For policy process research, I note that structural importance in the climate change belief network does not track the deep core/policy core/secondary ordering a hierarchical account predicts, since individualism, perceived climate risk, and support for an international agreement are robustly central regardless of whether the network is modeled as undirected or directed. I suggest policy process scholars would benefit from treating belief systems as networks alongside the hierarchical approach, particularly when the goal is to identify which beliefs are most structurally consequential rather than assuming that answer from belief type alone. For climate communication research, I note that consensus messaging campaigns may be better understood as targeted causal interventions than as efforts to shift a structurally central belief, following from my reframing of the gateway belief model finding above.</p>
+    </article>
+  </section>
+
+  <section class="reviewer" id="r2">
+    <div class="section-divider"><p class="kicker">Reviewer 2</p></div>
+
+    <p class="ack">I thank the reviewer for the positive assessment of the paper&rsquo;s writing and methods, and for pushing me to sharpen the paper&rsquo;s central contribution.</p>
+
+    <article class="item">
+      <p class="item-label"><span class="num">R2&#8209;1</span>A single, clear takeaway</p>
+      <blockquote><p>&ldquo;&hellip;the impact of the paper is relatively muted. I find it difficult to find the one sentence takeaway from the paper that&rsquo;s particularly convincing and, to some extent, the paper reads as a laundry list of findings. There are 3 hypotheses, many types of beliefs, and three network measures.&rdquo;</p></blockquote>
+      <p class="response-label">Response</p>
+      <p>As described above, I addressed this at the structural level rather than by rewriting a single framing sentence. I removed the confirmatory hypothesis-testing structure and reframed the paper as an exploratory analysis organized around a single finding &mdash; individualism, perceived climate risk, and support for an international agreement are robustly central regardless of whether the network is modeled as undirected or directed, while egalitarianism&rsquo;s centrality does not survive the directed model. This claim now organizes the Introduction, Results, and Discussion, and motivated the manuscript&rsquo;s new title. I also address the reviewer&rsquo;s specific question about whether the three centrality measures teach me something substantively different, and they do. Egalitarianism has the highest betweenness and closeness centrality, indicating it serves as a bridge connecting other beliefs, while support for EPA regulations has the highest strength centrality, indicating it has the strongest direct connections in the network. I now discuss this divergence directly rather than treating agreement across measures as the expected default.</p>
+    </article>
+
+    <article class="item">
+      <p class="item-label"><span class="num">R2&#8209;2</span>Whether the network method drives the rejection of hierarchy</p>
+      <blockquote><p>&ldquo;&hellip;I am not convinced that the rejection of the hierarchical structure is not due to the methods that are chosen&hellip; If you were to use a Bayes net&hellip; would you reach different conclusions&hellip;? &hellip;there is a discussion on pg. 5 about fuzziness in hierarchical belief structures and it&rsquo;s unclear to me how that is solved by the network.&rdquo;</p></blockquote>
+      <p class="response-label">Response</p>
+      <p>This is a fair concern, and I addressed it directly by estimating a companion Bayesian network over the same 17 belief nodes, using hill-climbing, tabu search, and constraint-based structure-learning algorithms, with stability assessed via a nonparametric bootstrap (500 resamples) and robustness to missing data checked via multiple imputation. The comparison shows the answer is not uniform. Individualism and perceived climate risk rank highly on both the Gaussian graphical model&rsquo;s centrality measures and the Bayesian network&rsquo;s out-degree and Markov blanket size, indicating their structural importance is likely not an artifact of either model; support for an international climate agreement has the highest out-degree of any node in the directed network, a stronger challenge to a hierarchical account than any finding from the undirected model alone. Egalitarianism, by contrast, ranks highest on betweenness and closeness in the undirected model but ranks well outside the top nodes on every Bayesian network measure, indicating its apparent centrality is specific to the undirected model rather than a general property of the belief. I report this divergence directly in the Discussion rather than treating the Gaussian graphical model&rsquo;s conclusions as method-independent. On the fuzziness point, I added a concrete illustration to the passage in question &mdash; I treat environmental orientation as a deep core belief because it could plausibly shape views across several environmental issues, but it could reasonably be classified as a policy core belief instead. The network approach does not resolve this classification question so much as sidestep it, since a belief&rsquo;s structural importance is determined empirically from its connections rather than assigned from a category.</p>
+    </article>
+
+    <article class="item">
+      <p class="item-label"><span class="num">R2&#8209;3</span>Scientific consensus operationalization and the gateway belief model</p>
+      <blockquote><p>&ldquo;&hellip;the question that is asked about consensus is quite different from the way consensus is operationalized in the literature (where 97% or 99% of scientists are said to agree)&hellip; H2 could use more justification. The GBM is hierarchical, and it would be useful to better translate between that hierarchical structure and the flattened network.&rdquo;</p></blockquote>
+      <p class="response-label">Response</p>
+      <p>I have added a paragraph to the Belief Measures section acknowledging this difference directly. My scientific-consensus item asks respondents for their own belief about whether a scientific consensus exists, rather than presenting them with an explicit consensus estimate before asking about downstream beliefs, as much of the gateway belief model literature does. I describe this as a more conservative measure, in the sense that it does not prime respondents with the consensus estimate itself, and note that it is similar to the measure used by Lee et al. (2024). On translating between the gateway belief model&rsquo;s hierarchical structure and the network, the network approach retains the same deep core, policy core, and secondary belief vocabulary the hierarchical account uses, treating perceived scientific consensus as the policy core belief that operationalizes the gateway belief model&rsquo;s causal entry point, but leaves open, as an empirical question, whether that belief occupies a structurally important position, rather than assuming it does because of its hierarchical role.</p>
+    </article>
+
+    <article class="item">
+      <p class="item-label"><span class="num">R2&#8209;4</span>LASSO tuning and cross-validation</p>
+      <blockquote><p>&ldquo;&hellip;the general approach now is to use cross-validation. The number of nodes and non-zero edges is a bit surprising for LASSO on data of this size. It would be nice to see the robustness to different specifications.&rdquo;</p></blockquote>
+      <p class="response-label">Response</p>
+      <p>I conducted both checks the reviewer requested. Re-estimating the network across a range of EBIC tuning values (gamma = 0 to 1) produces non-zero edge counts ranging from <span class="stat">79</span> to <span class="stat">105</span>, but the node with the highest point-estimated strength, betweenness, and closeness centrality is unchanged at every value tested. A cross-validation-selected network, estimated via the <code>huge</code> package, retains <span class="stat">87</span> edges, a materially similar level of sparsity to the <span class="stat">85</span> edges selected by my reported EBIC-tuned network. Both checks are now reported alongside the centrality results.</p>
+    </article>
+
+    <article class="item">
+      <p class="item-label"><span class="num">R2&#8209;5</span>Statistical tests for centrality comparisons</p>
+      <blockquote><p>&ldquo;When comparing the centrality measures across variables, statistical tests should be done.&rdquo;</p></blockquote>
+      <p class="response-label">Response</p>
+      <p>I conducted pairwise bootstrap difference tests for all <span class="stat">136</span> possible node pairs, for each of the three centrality measures, and report the results directly alongside each measure&rsquo;s centrality ranking rather than in a separate subsection. The results counsel caution in how I describe my top-ranked beliefs. For betweenness, only <span class="stat">31</span> of <span class="stat">136</span> pairwise comparisons are significant overall, and none of the 10 comparisons among the five top-ranked nodes reach significance, so egalitarianism&rsquo;s rank as most central on betweenness is a point estimate rather than a statistically distinguishable difference from the next four nodes. For closeness, <span class="stat">54</span> of <span class="stat">136</span> comparisons are significant overall, and only 1 of the 10 comparisons among the top five nodes does, egalitarianism&rsquo;s closeness centrality against fatalism&rsquo;s; egalitarianism is not significantly different from support for an international agreement, a carbon tax, or climate change risk on this measure. For strength, <span class="stat">82</span> of <span class="stat">136</span> comparisons are significant overall, the highest rate of the three measures, but still only 1 of the 10 comparisons among the top five nodes reaches significance, EPA regulations against a carbon tax, so the strength ranking of EPA regulations, climate change risk, and support for an international agreement should likewise be read with caution. I have revised &ldquo;most central&rdquo; language throughout the Introduction, Results, and Discussion to describe point estimates rather than statistically distinguishable ranks, consistent with these results.</p>
+    </article>
+  </section>
+
+  <footer class="closing">
+    <p>I thank both reviewers again for their careful engagement with the manuscript. I believe the revisions described above, and in particular the shift to an explicitly exploratory framing organized around a single finding, have substantially strengthened the paper, and I hope the revised manuscript addresses the concerns raised.</p>
+  </footer>
+
+</div>

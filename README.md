@@ -9,7 +9,7 @@ partisanship, environmental orientation, perceived scientific consensus, and
 climate policy preferences, then compares betweenness, closeness, and strength
 centrality to identify which beliefs are structurally most central.
 
-**Status**: Major revision requested — all reviewer items addressed and `reviews/response-letter.md` finalized. Completed a full internal read-through for flow, consistency, and internal logic (Session 24), cut manuscript length ~20% toward the target journal's 7,500-word limit (Session 25), and fixed a centrality/causal-influence language inconsistency plus extended the theoretical-anchors framing to variable selection (Session 26). Currently 8,736 body words / 28 PDF pages; ready for final proofread before resubmission.
+**Status**: Major revision requested — all reviewer items addressed. Completed a full internal read-through for flow, consistency, and internal logic (Session 24), cut manuscript length ~20% toward the target journal's 7,500-word limit (Session 25), fixed a centrality/causal-influence language inconsistency plus extended the theoretical-anchors framing to variable selection (Session 26), and completed a fact-checked accuracy pass plus a grammar/style-match pass (Session 27). `reviews/response-letter-final.md` is a clean, submission-ready response-to-reviewers letter (`reviews/response-letter.md` remains the internal working record). Ready for resubmission.
 
 ## Layout
 
@@ -33,7 +33,8 @@ scripts/
   export-cited-refs.R                Pre-render step: trims the master .bib to cited keys
 data/                                 Survey data and replication objects (tracked in git)
 outputs/                              Figures from the GGM/Bayesian-network robustness checks
-reviews/                              Decision letter, extracted reviews, response-to-reviewers plan
+reviews/                              Decision letter, extracted reviews, response-to-reviewers plan;
+                                       response-letter-final.md/.html is the clean, submission-ready letter
 ```
 
 ## Reproducing the analysis

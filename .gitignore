@@ -5,6 +5,7 @@
 .DS_Store
 manuscript/references.bib
 manuscript/american-political-science-association.csl
+nowlin-style-profile.md
 
 /.quarto/
 **/*.quarto_ipynb
